@@ -8,18 +8,23 @@ import "font-awesome/css/font-awesome.min.css";
 import LocationMarker from "./pages/LocationMarker"
 import ScrollZoom from "./pages/ScrollZoom"
 import AddMarker from './pages/AddMarker';
+import axios from 'axios';
 
 const { BaseLayer } = LayersControl;
 
 function Map() 
 { 
   const [map, handleMapCreated] = useState(null); 
-  const [geojson, setGeojson] = useState(); 
+  const [markers, setMarkers] = useState([]); 
  
-  useEffect(() => { 
-    fetch("geojson.json") 
-      .then((r) => r.json()) 
-      .then((r) => setGeojson(r)); 
+  useEffect(() => {
+    axios.get('/api/markers/')
+      .then(response => {
+        setMarkers(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []); 
  
   return( 
@@ -28,7 +33,7 @@ function Map()
             zoom={13} 
             zoomControl={true} 
             ref={handleMapCreated}> 
-      {geojson && <GeoJSON data={geojson} />} 
+      {markers && <GeoJSON data={markers} />} 
       <LayersControl> 
         <BaseLayer checked name="OpenStreetMap"> 
           <TileLayer 
@@ -37,7 +42,7 @@ function Map()
           /> 
         </BaseLayer> 
       </LayersControl> 
-      <AddMarker map = {map} geojson={geojson} setGeojson={setGeojson}/> 
+      <AddMarker map = {map} geojson={markers} setGeojson={setMarkers}/> 
       <LocationMarker map={map}/> 
       <ScrollZoom map={map}/> 
     </MapContainer> 
