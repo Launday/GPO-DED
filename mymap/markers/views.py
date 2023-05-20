@@ -9,6 +9,7 @@ class MarkerListAPIView(APIView):
     def get(self, request):
         markers = Marker.objects.all()
         serializer = MarkerSerializer(markers, many=True)
+        print(serializer.data)
         return Response(serializer.data)
 
 
