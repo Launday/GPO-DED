@@ -1,23 +1,19 @@
 import { useEffect} from 'react';
 import L from "leaflet";
   
-function ScrollZoom({map}) {
+function ScrollZoom({map, geojson}) { 
+  useEffect(() => { 
+    if (!map) return; 
 
-  useEffect(() => {
-    if (!map) return;
-
-    L.easyButton("fa-globe", () => 
-    {
-      if (map.scrollWheelZoom.enabled()) 
-      {
-        map.scrollWheelZoom.disable();
-      }
-      else 
-      {
-        map.scrollWheelZoom.enable();
-      }
-    }).addTo(map);
-  }, [map]);
+    L.easyButton("fa-globe", () => { 
+      const markers = L.geoJSON(geojson, { 
+        onEachFeature: function(feature, layer) { 
+          layer.bindPopup(feature.properties.name); 
+        } 
+      }); 
+      markers.addTo(map); 
+    }).addTo(map); 
+  }, [map]); 
 }
   
 export default ScrollZoom;

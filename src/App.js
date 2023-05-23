@@ -8,6 +8,7 @@ import "font-awesome/css/font-awesome.min.css";
 import LocationMarker from "./pages/LocationMarker"
 import ScrollZoom from "./pages/ScrollZoom"
 import AddMarker from './pages/AddMarker';
+import saveGeoJSON from './pages/saveGeoJSON';
 import axios from 'axios';
 
 const { BaseLayer } = LayersControl;
@@ -42,9 +43,10 @@ function Map()
           /> 
         </BaseLayer> 
       </LayersControl> 
+      <ScrollZoom map={map} geojson={markers}/>
       <AddMarker map = {map} geojson={markers} setGeojson={setMarkers}/> 
       <LocationMarker map={map}/> 
-      <ScrollZoom map={map}/> 
+      <saveGeoJSON geojson={markers}/> 
     </MapContainer> 
   ); 
 }

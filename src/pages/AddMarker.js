@@ -81,10 +81,8 @@ function AddMarker({ map, geojson, setGeojson }) {
     map.on('click', HandleMapClick);
 
     const button = L.easyButton('fa-globe', handleSaveClick);
-    // const button1 = L.easyButton('fa-globe', openFile);
 
     button.addTo(map);
-    // button1.addTo(map);
 
     return () => {
       map.off('click', HandleMapClick);
