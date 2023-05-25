@@ -8,6 +8,7 @@ import "font-awesome/css/font-awesome.min.css";
 import LocationMarker from "./pages/LocationMarker";
 import ScrollZoom from "./pages/ScrollZoom";
 import AddMarker from "./pages/AddMarker";
+// import saveGeoJSON from "./pages/zalupa";
 import axios from "axios";
 
 const { BaseLayer } = LayersControl;
@@ -18,7 +19,7 @@ function Map() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/markers/")
+      .get("http://127.0.0.1:8000/markers/markers/")
       .then((response) => {
         setMarkers(response.data);
       })
@@ -43,9 +44,9 @@ function Map() {
           />
         </BaseLayer>
       </LayersControl>
-      <AddMarker map={map} geojson={markers} setGeojson={setMarkers} />
+      <ScrollZoom map={map} geojson={markers} />
+      <AddMarker map={map} />
       <LocationMarker map={map} />
-      <ScrollZoom map={map} />
     </MapContainer>
   );
 }
