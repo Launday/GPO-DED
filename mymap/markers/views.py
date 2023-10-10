@@ -24,18 +24,6 @@ def getRoutes(request):
             'body': {'name': "", 'location': ""},
             'description': 'Creates new marker with data sent in post request'
         },
-        # {
-        #     'Endpoint': '/notes/id/update/',
-        #     'method': 'PUT',
-        #     'body': {'body': ""},
-        #     'description': 'Creates an existing note with data sent in post request'
-        # },
-        # {
-        #     'Endpoint': '/notes/id/delete/',
-        #     'method': 'DELETE',
-        #     'body': None,
-        #     'description': 'Deletes and exiting note'
-        # },
     ]
     return Response(routes)
 
